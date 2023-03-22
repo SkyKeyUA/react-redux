@@ -1,0 +1,31 @@
+/** @format */
+@import './libs/normalize';
+
+.App {
+}
+.wrapper {
+  font-size: 42px;
+}
+.content {
+  &__container {
+    margin: 0px auto;
+    max-width: 1440px;
+  }
+  &__info {
+    padding: 400px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &__btn {
+    font-size: 24px;
+    background: yellow;
+    padding: 12px;
+    margin: 10px;
+    border-radius: 20px;
+    border: 1px solid #000;
+  }
+  &__number {
+    margin: 0px 15px;
+  }
+}
