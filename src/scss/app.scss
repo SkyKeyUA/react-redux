@@ -12,7 +12,7 @@
     max-width: 1440px;
   }
   &__info {
-    padding: 400px 0px;
+    padding: 400px 0px 200px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -27,5 +27,11 @@
   }
   &__number {
     margin: 0px 15px;
+  }
+  &__users {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
   }
 }

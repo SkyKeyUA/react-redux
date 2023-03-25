@@ -6,10 +6,12 @@ import { RootState } from '../store';
 
 export interface CounterState {
   cash: number;
+  user: string[];
 }
 
 const initialState: CounterState = {
   cash: getCashFromLS(),
+  user: [],
 };
 
 export const counterSlice = createSlice({
@@ -25,11 +27,17 @@ export const counterSlice = createSlice({
     getCash(state, action: PayloadAction<number>) {
       state.cash = state.cash - action.payload;
     },
+    addUser(state, action: PayloadAction<string>) {
+      state.user = [...state.user, action.payload];
+    },
+    removeUser(state, action: PayloadAction<string>) {
+      state.user = state.user.filter((obj) => obj.toLowerCase() !== action.payload.toLowerCase());
+    },
   },
 });
 
 export const selectCounter = (state: RootState) => state.counterSlice;
 
-export const { setCash, addCash, getCash } = counterSlice.actions;
+export const { removeUser, addUser, setCash, addCash, getCash } = counterSlice.actions;
 
 export default counterSlice.reducer;
