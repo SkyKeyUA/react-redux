@@ -33,11 +33,15 @@ export const counterSlice = createSlice({
     removeUser(state, action: PayloadAction<string>) {
       state.user = state.user.filter((obj) => obj.toLowerCase() !== action.payload.toLowerCase());
     },
+    removeCustomer(state, action: PayloadAction<number>) {
+      state.user = state.user.filter((_, index) => index !== action.payload);
+    },
   },
 });
 
 export const selectCounter = (state: RootState) => state.counterSlice;
 
-export const { removeUser, addUser, setCash, addCash, getCash } = counterSlice.actions;
+export const { removeUser, addUser, setCash, addCash, getCash, removeCustomer } =
+  counterSlice.actions;
 
 export default counterSlice.reducer;

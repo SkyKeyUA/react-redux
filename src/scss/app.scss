@@ -34,4 +34,17 @@
     align-items: center;
     flex-direction: column;
   }
+  &__block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &__user {
+    padding: 10px;
+    margin: 5px;
+    background-color: greenyellow;
+    border-radius: 10px;
+    border: 1px solid #000;
+    cursor: pointer;
+  }
 }

@@ -2,7 +2,14 @@
 
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addCash, addUser, getCash, removeUser, selectCounter } from './redux/slices/counter';
+import {
+  addCash,
+  addUser,
+  getCash,
+  removeCustomer,
+  removeUser,
+  selectCounter,
+} from './redux/slices/counterSlice';
 import './scss/app.scss';
 
 function App() {
@@ -23,6 +30,9 @@ function App() {
   const onClickRemoveUser = () => {
     dispatch(removeUser(prompt() as string));
   };
+  const onClickRemoveCustomer = React.useCallback((index: number) => {
+    dispatch(removeCustomer(index));
+  }, []);
   React.useEffect(() => {
     if (isMounted.current) {
       const json = JSON.stringify(cash);
@@ -54,15 +64,19 @@ function App() {
                 <button onClick={() => onClickRemoveUser()} className="content__btn">
                   RemoveUser
                 </button>
+                <div className="content__number">{user.length}</div>
               </div>
               {user.length > 0 ? (
                 user.map((obj: any, index: number) => (
-                  <div key={index} className="content__user">
+                  <div
+                    key={index}
+                    onClick={() => onClickRemoveCustomer(index)}
+                    className="content__user">
                     {obj}
                   </div>
                 ))
               ) : (
-                <div className="content__user">No Users</div>
+                <div className="content__nouser">No Users</div>
               )}
             </div>
           </div>

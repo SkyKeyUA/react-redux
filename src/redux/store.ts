@@ -2,7 +2,7 @@
 
 import { configureStore } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
-import counterSlice from './slices/counter';
+import counterSlice from './slices/counterSlice';
 
 export const store = configureStore({
   reducer: {
