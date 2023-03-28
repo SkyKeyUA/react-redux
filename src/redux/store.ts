@@ -2,11 +2,13 @@
 
 import { configureStore } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
-import counterSlice from './slices/counterSlice';
+import usersSlice from './users/slice';
+import cashSlice from './cash/slice';
 
 export const store = configureStore({
   reducer: {
-    counterSlice,
+    usersSlice,
+    cashSlice,
   },
 });
 

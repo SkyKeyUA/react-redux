@@ -2,19 +2,21 @@
 
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  addCash,
-  addUser,
-  getCash,
-  removeCustomer,
-  removeUser,
-  selectCounter,
-} from './redux/slices/counterSlice';
+import { addAllUsers, addUser, removeCustomer, removeUser, selectUsers } from './redux/users/slice';
+import { addCash, getCash, selectCash } from './redux/cash/slice';
 import './scss/app.scss';
+
+type UserProps = {
+  id: number;
+  name: string;
+  username: string;
+  email: string;
+};
 
 function App() {
   const isMounted = React.useRef(false);
-  const { cash, user } = useSelector(selectCounter);
+  const { cash } = useSelector(selectCash);
+  const { user } = useSelector(selectUsers);
   const dispatch = useDispatch();
   const onClickAddCash = () => {
     dispatch(addCash(Number(prompt())));
@@ -24,7 +26,13 @@ function App() {
   };
   const onClickAddUser = () => {
     if (user) {
-      dispatch(addUser(prompt() as string));
+      const newUser: UserProps = {
+        id: user.length + 1,
+        name: '',
+        username: prompt() as string,
+        email: '',
+      };
+      dispatch(addUser(newUser));
     }
   };
   const onClickRemoveUser = () => {
@@ -58,6 +66,11 @@ function App() {
           <div className="content__container">
             <div className="content__users">
               <div className="content__block">
+                <button onClick={() => dispatch(addAllUsers(user))} className="content__btn">
+                  AddFetchUsers
+                </button>
+              </div>
+              <div className="content__block">
                 <button onClick={() => onClickAddUser()} className="content__btn">
                   AddUser
                 </button>
@@ -72,7 +85,7 @@ function App() {
                     key={index}
                     onClick={() => onClickRemoveCustomer(index)}
                     className="content__user">
-                    {obj}
+                    {obj.username}
                   </div>
                 ))
               ) : (
