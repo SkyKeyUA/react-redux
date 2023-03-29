@@ -2,11 +2,7 @@
 
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getCashFromLS } from '../../utils/getCashFromLS';
-import { RootState } from '../store';
-
-export interface CashState {
-  cash: number;
-}
+import { CashState } from './type';
 
 const initialState: CashState = {
   cash: getCashFromLS(),
@@ -27,8 +23,6 @@ export const cashSlice = createSlice({
     },
   },
 });
-
-export const selectCash = (state: RootState) => state.cashSlice;
 
 export const { setCash, addCash, getCash } = cashSlice.actions;
 

@@ -1,28 +1,13 @@
 /** @format */
 
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import axios from 'axios';
-import { RootState } from '../store';
-
-type Users = {
-  id: number;
-  name: string;
-  username: string;
-  email: string;
-};
-
-export interface UsersState {
-  user: Users[];
-}
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { fetchUsers } from './asyncActions';
+import { Status, Users, UsersState } from './type';
 
 const initialState: UsersState = {
   user: [],
+  status: Status.LOADING, // loading \ success \ error
 };
-
-export const fetchUsers = createAsyncThunk<Users[]>('users/fetchUsersStatus', async () => {
-  const { data } = await axios.get<Users[]>('https://jsonplaceholder.typicode.com/users');
-  return data as Users[];
-});
 
 export const usersSlice = createSlice({
   name: 'users',
@@ -45,21 +30,22 @@ export const usersSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchUsers.pending, (state) => {
+      state.status = Status.LOADING;
       state.user = [];
       console.log('Data is being sent');
     });
     builder.addCase(fetchUsers.fulfilled, (state, action) => {
+      state.status = Status.SUCCESS;
       state.user = action.payload;
       console.log(state, 'All Good');
     });
     builder.addCase(fetchUsers.rejected, (state) => {
+      state.status = Status.ERROR;
       state.user = [];
       console.log('Was Error');
     });
   },
 });
-
-export const selectUsers = (state: RootState) => state.usersSlice;
 
 export const { addAllUsers, removeUser, addUser, removeCustomer } = usersSlice.actions;
 

@@ -2,8 +2,12 @@
 
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addAllUsers, addUser, removeCustomer, removeUser, selectUsers } from './redux/users/slice';
-import { addCash, getCash, selectCash } from './redux/cash/slice';
+import { selectCash } from './redux/cash/selectors';
+import { addCash, getCash } from './redux/cash/slice';
+import { useAppDispatch } from './redux/store';
+import { fetchUsers } from './redux/users/asyncActions';
+import { selectUsers } from './redux/users/selectors';
+import { addAllUsers, addUser, removeCustomer, removeUser } from './redux/users/slice';
 import './scss/app.scss';
 
 type UserProps = {
@@ -18,6 +22,7 @@ function App() {
   const { cash } = useSelector(selectCash);
   const { user } = useSelector(selectUsers);
   const dispatch = useDispatch();
+  const appDispatch = useAppDispatch();
   const onClickAddCash = () => {
     dispatch(addCash(Number(prompt())));
   };
@@ -48,6 +53,9 @@ function App() {
     }
     isMounted.current = true;
   }, [cash]);
+  React.useEffect(() => {
+    appDispatch(fetchUsers());
+  }, [appDispatch]);
   return (
     <div className="App">
       <div className="wrapper">
@@ -66,9 +74,7 @@ function App() {
           <div className="content__container">
             <div className="content__users">
               <div className="content__block">
-                <button onClick={() => dispatch(addAllUsers(user))} className="content__btn">
-                  AddFetchUsers
-                </button>
+                <button className="content__btn">AddFetchUsers</button>
               </div>
               <div className="content__block">
                 <button onClick={() => onClickAddUser()} className="content__btn">
