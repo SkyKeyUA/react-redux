@@ -53,9 +53,9 @@ function App() {
     }
     isMounted.current = true;
   }, [cash]);
-  React.useEffect(() => {
-    appDispatch(fetchUsers());
-  }, [appDispatch]);
+  //   React.useEffect(() => {
+  //     appDispatch(fetchUsers());
+  //   }, [appDispatch]);
   return (
     <div className="App">
       <div className="wrapper">
@@ -74,7 +74,9 @@ function App() {
           <div className="content__container">
             <div className="content__users">
               <div className="content__block">
-                <button className="content__btn">AddFetchUsers</button>
+                <button onClick={() => appDispatch(fetchUsers())} className="content__btn">
+                  AddFetchUsers
+                </button>
               </div>
               <div className="content__block">
                 <button onClick={() => onClickAddUser()} className="content__btn">
